@@ -97,7 +97,7 @@ public class Main { //PORTAIL_UDS
     }
 
 
-    public Membre logIn(String login, String password){
+/*    public Membre logIn(String login, String password){
         Scanner in = new Scanner(System.in);
         System.out.println("CONNEXION:\n=============================Entrez votre login:");
         login = in.nextLine();
@@ -125,5 +125,5 @@ public class Main { //PORTAIL_UDS
 
     public static void logOut(){
 
-    }
+    }*/
 }

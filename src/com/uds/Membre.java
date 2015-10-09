@@ -27,11 +27,11 @@ public class Membre {
 
     }
 
-    public Membre(String nom, String prenom, String login, String password) {
+    public Membre(String nom, String prenom/*,String login, String password*/) {
         this.nom = nom;
         this.prenom = prenom;
-        this.login = login;
-        this.password = password;
+      /*  this.login = login;
+        this.password = password;*/
     }
 
 }
