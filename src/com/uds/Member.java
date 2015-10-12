@@ -3,13 +3,15 @@ package com.uds;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Membre {
-    //public String _id;
+public class Member {
+    //public String _id; //TODO: Generer un id aléatoirement
 
     public String login;
-    public String nom;
-    public String prenom;
     public String password;
+    public String lastname;
+    public String firstname;
+    public String fullname;
+
 
     public List<Groupe> listGroupes = new ArrayList<Groupe> ();
 
@@ -27,9 +29,10 @@ public class Membre {
 
     }
 
-    public Membre(String nom, String prenom/*,String login, String password*/) {
-        this.nom = nom;
-        this.prenom = prenom;
+    public Member(String lastname, String firstname/*,String login, String password*/) {
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.fullname = lastname + "" + firstname;
       /*  this.login = login;
         this.password = password;*/
     }
