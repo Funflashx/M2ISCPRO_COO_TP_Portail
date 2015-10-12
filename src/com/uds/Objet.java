@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Objet {
 
+    //TODO: patten composite    >Document, Répertoire, Service
+
     public String titre;
 
     public String description;
@@ -12,7 +14,7 @@ public class Objet {
 
     public Date date_modification;
 
-    public Membre createur;
+    public Member createur;
 
     public Objet() {
     }

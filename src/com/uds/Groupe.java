@@ -11,7 +11,7 @@ public class Groupe {
 
     public String description;
 
-    public List<Membre> ListMember  = new ArrayList<Membre>();
+    public List<Member> ListMember  = new ArrayList<Member>();
 
 
     public List<Objet> ListObjects = new ArrayList<Objet> ();

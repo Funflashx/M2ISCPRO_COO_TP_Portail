@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main { //PORTAIL_UDS
 
     public List<Groupe> ListGroups = new ArrayList<Groupe> ();
-    public List<Membre> ListMembers = new ArrayList<Membre> ();
+    public List<Member> ListMembers = new ArrayList<Member> ();
 
     public static void main(String[] args) {
 
@@ -22,24 +22,24 @@ public class Main { //PORTAIL_UDS
         boolean actif = true;
         String selectedItem;
 
-        //François- Authentification
+        //- Authentification
         System.out.println("Bienvenue sur le portail UDS. \n=============================");
 
-        System.out.println("Entrez votre nom:");
+        System.out.println("Entrez votre lastname:");
         nom = in.nextLine();
-        System.out.println("Entrez votre prenom:");
+        System.out.println("Entrez votre firstname:");
         prenom = in.nextLine();
 
         //création du membre
-        Membre newUser = new Membre(nom, prenom);
+        Member newUser = new Member(nom, prenom);
 
-        //François- Système
+        //- Système
         while (actif) {
             selectedItem = displayMenu(); //affiche le menu
 
             switch (selectedItem) {
                 case "1":
-                    List<Groupe> listeGroupe = newUser.getGroups();
+                    List<Groupe> listeGroupe = newUser.getListGroups();
                     displayGroups(listeGroupe);
                     break;
                 case "2":
@@ -97,13 +97,13 @@ public class Main { //PORTAIL_UDS
     }
 
 
-/*    public Membre logIn(String login, String password){
+/*    public Member logIn(String login, String password){
         Scanner in = new Scanner(System.in);
         System.out.println("CONNEXION:\n=============================Entrez votre login:");
         login = in.nextLine();
         System.out.println("Entrez votre mot de passe:");
         password = in.nextLine();
-        for (Membre member: ListMembers){
+        for (Member member: ListMembers){
             if (login == member.login && password == member.password){
                 return member;
             }
@@ -111,15 +111,15 @@ public class Main { //PORTAIL_UDS
         return null;
     }
 
-    public Membre signIn(){
-        String login; String password; String nom; String prenom;
+    public Member signIn(){
+        String login; String password; String lastname; String firstname;
         Scanner in = new Scanner(System.in);
 
         System.out.println("CREATION D'UN COMPTE:\n=============================Entrez votre login:");
         login = in.nextLine();
         System.out.println("Entrez votre mot de passe:");
         password = in.nextLine();
-        Membre newMember = new Membre(nom, prenom,login, password);
+        Member newMember = new Member(lastname, firstname,login, password);
         return newMember;
     }
 

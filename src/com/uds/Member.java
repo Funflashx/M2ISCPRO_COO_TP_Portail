@@ -13,18 +13,22 @@ public class Member {
     public String fullname;
 
 
-    public List<Groupe> listGroupes = new ArrayList<Groupe> ();
+    public List<Groupe> listGroups = new ArrayList<Groupe> ();
 
-    public List<Groupe> mesGroupes = new ArrayList<Groupe> ();
+    public List<Groupe> myListGroups = new ArrayList<Groupe> ();
 
-    public List<Groupe> getGroups() {
-        return this.listGroupes;
+    public List<Groupe> getListGroups() {
+        return this.listGroups;
+    }
+
+    public List<Groupe> getMyListGroups() {
+        return this.myListGroups;
     }
 
     public Groupe createGroup(String title,String description) {
         Groupe newGroupe = new Groupe(title, description);
-        listGroupes.add(newGroupe);
-        mesGroupes.add(newGroupe);
+        listGroups.add(newGroupe);
+        myListGroups.add(newGroupe);
         return newGroupe;
 
     }
