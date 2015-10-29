@@ -30,7 +30,7 @@ public abstract class Groupe {
     //TODO:
     public abstract void method();
 
-    public abstract void addObject(String type, String title, String description, Membre owner, Repertoire rep);
+    public abstract Objet addObject(String type, String title, String description, Membre owner, Repertoire rep);
 }
 
 /*

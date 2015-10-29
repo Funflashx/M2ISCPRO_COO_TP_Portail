@@ -7,13 +7,25 @@ import java.util.Scanner;
 
 public class Portail { //PORTAIL_UDS
 
-    public List<Groupe> ListGroups = new ArrayList<Groupe> ();
-    public List<Membre> listMembres = new ArrayList<Membre> ();
-    public List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
+    public static List<Groupe> listGroups = new ArrayList<Groupe> ();
+    public static List<Membre> listMembres = new ArrayList<Membre> ();
+    public static List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
 
     public static void main(String[] args) {
 
-        //varible de l'environement
+        GroupeFactory groupInstitutionnel = new GroupeInstitutionnelFactory();
+        GroupeFactory groupTypique = new GroupeTypiqueFactory();
+
+        Membre antoine = new Membre("Antoine","Daniel");
+        listMembres.add(antoine);
+
+        Groupe groupeT = groupInstitutionnel.creeGroupe("filiere", antoine,"M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
+        antoine.addGroup(groupeT);
+        listGroups.add(groupeT);
+        antoine.addObject("repertoire", "TP", "", groupeT);
+
+        displayGroups(antoine.getGroups());
+       /* //varible de l'environement
         Scanner in = new Scanner(System.in);
         String nom;
         String prenom;
@@ -94,10 +106,10 @@ public class Portail { //PORTAIL_UDS
 
         }
         System.err.println("À bientôt sur le portail UDS");
-
+*/
     }
 
-    public static void createObjet(String type){
+  /*  public static void createObjet(String type){
         switch (type){
             case "1":
 
@@ -108,31 +120,30 @@ public class Portail { //PORTAIL_UDS
             default:
 
         }
-    }
+    }*/
 
-    public static String displayMenu(){
+/*    public static String displayMenu(){
         Scanner in = new Scanner(System.in);
         System.out.println("Choisissez une action:" +
                 "\n1- Afficher tous les groupes" +
                 "\n2- Créer un groupe");
         return in.nextLine();
-    }
+    }*/
 
     public static void displayGroups(List<Groupe> groupes) {
-        int i = 1;
         if(groupes.size() == 0){
             System.out.println("Liste Vide");
             //displayMenu();
         }else {
             for (Groupe g : groupes) {
-                System.out.println(i + "-" + g.titre);
-                System.out.println(g.description + "\n---------------------------------");
-
-                i++;
+                System.out.println("#"+groupes.indexOf(g) + "." + g.titre
+                        + "\n=============================\ncreated by: "+ g.owner.fullname + "\nbrief:"
+                        + g.description + "___________________membres: "+g.listMembre.size());
             }
         }
 
     }
+
 
 }
 

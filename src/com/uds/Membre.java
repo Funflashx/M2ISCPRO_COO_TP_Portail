@@ -41,4 +41,16 @@ public class Membre {
       /*  this.login = login;
         this.password = password;*/
     }
+
+    public Objet addObject(String type, String title, String description, Groupe groupe){
+        return groupe.addObject(type,title,description,this,groupe.getRepertoire());
+    }
+
+    public List<Groupe> getGroups(){
+        return listGroups;
+    }
+
+    public void addGroup(Groupe groupe) {
+        this.listGroups.add(groupe);
+    }
 }
