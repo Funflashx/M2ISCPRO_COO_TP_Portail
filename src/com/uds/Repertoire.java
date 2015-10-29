@@ -21,20 +21,24 @@ public class Repertoire implements Objet {
     }*/
 
     //Collection of child graphics.
-    private List<Objet> childObjet = new ArrayList<Objet>();
+    private List<Objet> childObjets = new ArrayList<Objet>();
 
     public void method() {
-            System.out.println("un truc doit se passer ici x)");
+        System.out.println("Repertoire:\n{");
+        for (Objet objet : childObjets) {
+            objet.method();
+        }
+        System.out.println("}\n");
     }
 
     //Adds the objet to the composition.
     public void add(Objet objet) {
-        childObjet.add(objet);
+        childObjets.add(objet);
     }
 
     //Removes the objet from the composition.
     public void remove(Objet objet) {
-        childObjet.remove(objet);
+        childObjets.remove(objet);
     }
 
 }
