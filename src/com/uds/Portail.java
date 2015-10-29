@@ -1,9 +1,9 @@
 package com.uds;
 
+import java.io.IOException;
 import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Portail { //PORTAIL_UDS
 
@@ -11,20 +11,46 @@ public class Portail { //PORTAIL_UDS
     public static List<Membre> listMembres = new ArrayList<Membre> ();
     public static List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         GroupeFactory groupInstitutionnel = new GroupeInstitutionnelFactory();
         GroupeFactory groupTypique = new GroupeTypiqueFactory();
 
+        Membre lalie = new Membre("Lalie","Clérel");
         Membre antoine = new Membre("Antoine","Daniel");
+        Membre françois = new Membre("François", "Caillet");
+        Membre anthony = new Membre("Antony", "Di Lisio");
+        Membre christine = new Membre("Christine", "Ferraris");
+        Membre jack = new Membre("Jack", "Sparrow");
         listMembres.add(antoine);
+        listMembres.add(lalie);
+        listMembres.add(françois);
+        listMembres.add(anthony);
+        listMembres.add(christine);
+        listMembres.add(jack);
 
         Groupe groupeT = groupInstitutionnel.creeGroupe("filiere", antoine,"M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
         antoine.addGroup(groupeT);
         listGroups.add(groupeT);
-        antoine.addObject("repertoire", "TP", "", groupeT);
+
+        Repertoire sousRepertoire1 = new Repertoire("rep1","", antoine);
+        groupeT.addObject("repertoire", sousRepertoire1,groupeT.getRacine());
+
+        Repertoire sousSousRepertoire1 = new Repertoire("rep2","", antoine);
+        groupeT.addObject("repertoire", sousSousRepertoire1,sousRepertoire1);
+
+        Document document = new Document("document", "", antoine);
+        groupeT.addObject("document",document,sousSousRepertoire1);
+
+        Service service = new Service("efef","fs",antoine);
+        groupeT.addObject("service",service,sousRepertoire1);
+
 
         displayGroups(antoine.getGroups());
+        //displayMembers(listMembres);
+        Thread.sleep(1000);
+        displayGroup(groupeT);
+
        /* //varible de l'environement
         Scanner in = new Scanner(System.in);
         String nom;
@@ -132,18 +158,52 @@ public class Portail { //PORTAIL_UDS
 
     public static void displayGroups(List<Groupe> groupes) {
         if(groupes.size() == 0){
-            System.out.println("Liste Vide");
+            System.out.println((char)27 + "[31;1m" +"LISTE VIDE");
+            clear();
             //displayMenu();
         }else {
             for (Groupe g : groupes) {
-                System.out.println("#"+groupes.indexOf(g) + "." + g.titre
-                        + "\n=============================\ncreated by: "+ g.owner.fullname + "\nbrief:"
-                        + g.description + "___________________membres: "+g.listMembre.size());
+                System.out.println("#" + groupes.indexOf(g) + "." + (char) 27 + "[30;4m" + g.getTitre());
+                clear();
+                System.out.print("=============================\n#created by: "+ (char)27 + "[36;1m" + g.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
+                        + (char)27 + "[30;0m"+ g.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres: " + (char)27 + "[0;1m" + g.getListMembre().size() + (char)27 + "[0;0m\n\n\n");
             }
         }
 
     }
 
+    public static void displayGroup(Groupe g){
+        System.out.print("#" + (char) 27 + "[30;4m" + g.getTitre());
+        clear();
+        System.out.print("\n=============================\n#created by: "+ (char)27 + "[36;1m" + g.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
+                + (char)27 + "[30;0m"+ g.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres:\n");
+
+        displayMembers(g.getListMembre());
+        g.getRacine().print(0);
+    }
+
+    public static void displayMembers(List<Membre> membres){
+        int index = 1;
+        for (Membre m: membres){
+            System.out.print((char)27 + "[34;0m" + m.getSumFullname());
+            if (index < membres.size()){
+                System.out.print("|");
+            }
+            if (index%4 == 0){
+                System.out.print("\n");
+            }
+            if (index == membres.size()){
+                System.out.println((char)27 + "[235;1m\n_____________________________");
+                System.out.print((char)27 + "[0;0m");
+            }
+            index++;
+        }
+    }
+
+
+    public static void clear(){
+        System.out.print((char)27 + "[0;0m");
+    }
 
 }
 

@@ -49,12 +49,18 @@ public class Repertoire implements Objet {
         return modificationDate;
     }
 
-    public void print() {
-        System.out.println("Repertoire:\n{");
-        for (Objet objet : childObjets) {
-            objet.print();
+
+
+    public void print(int section) {
+        int index = section;
+        while (index >= 0){
+            System.out.print("|===|");
+            index --;
         }
-        System.out.println("}\n");
+        System.out.println(this.title);
+        for (Objet objet : childObjets) {
+            objet.print(section + 1);
+        }
     }
 
     //Adds the objet to the composition.
@@ -66,6 +72,8 @@ public class Repertoire implements Objet {
     public void remove(Objet objet) {
         childObjets.remove(objet);
     }
+
+
 
 }
 

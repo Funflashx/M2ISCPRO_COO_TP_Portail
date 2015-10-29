@@ -41,8 +41,13 @@ public class Service implements Objet {
         return modificationDate;
     }
 
-    public void print() {
-        System.out.println("Service");
+    public void print(int section) {
+        int index = section;
+        while (index >= 0){
+            System.out.print("|===|");
+            index --;
+        }
+        System.out.println((char)27 + "[35;1m" + title + (char)27 + "[0;0m");
     }
 
 }

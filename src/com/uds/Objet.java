@@ -12,7 +12,7 @@ interface Objet {
 
 
 
-    public void print();
+    public void print(int section);
     //TODO: methode à implementer ici
 
 }

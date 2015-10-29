@@ -6,11 +6,14 @@ import java.util.List;
 public class Membre {
     //public String _id; //TODO: Generer un id aléatoirement
 
-    public String login;
-    public String password;
-    public String lastname;
-    public String firstname;
-    public String fullname;
+
+
+    private String login;
+    private String password;
+    private String lastname;
+    private String firstname;
+    private String fullname;
+    private String sumFullname;
 
 
     public List<Groupe> listGroups = new ArrayList<Groupe> ();
@@ -34,16 +37,17 @@ public class Membre {
 
     }*/
 
-    public Membre(String lastname, String firstname/*,String login, String password*/) {
+    public Membre(String firstname, String lastname/*,String login, String password*/) {
         this.lastname = lastname;
         this.firstname = firstname;
-        this.fullname = lastname + "" + firstname;
+        this.fullname = firstname + " " + lastname;
+        this.sumFullname = firstname + " " + lastname.charAt(0);
       /*  this.login = login;
         this.password = password;*/
     }
 
-    public Objet addObject(String type, String title, String description, Groupe groupe){
-        return groupe.addObject(type,title,description,this,groupe.getRepertoire());
+    public void addObject(String type, Objet objet, Repertoire repertoire, Groupe groupe){
+        groupe.addObject(type,objet,repertoire);
     }
 
     public List<Groupe> getGroups(){
@@ -52,5 +56,29 @@ public class Membre {
 
     public void addGroup(Groupe groupe) {
         this.listGroups.add(groupe);
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public String getSumFullname() {
+        return sumFullname;
     }
 }

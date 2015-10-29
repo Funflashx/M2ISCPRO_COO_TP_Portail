@@ -13,10 +13,11 @@ public class Document implements Objet {
     private Membre owner;
     private Date creationDate;
     private Date modificationDate;
+    private String extention;
 
     public Document(String title, String description, Membre owner) {
         this.linkedDocuments = new ArrayList<>();
-
+        this.extention = ".doc";
         this.title = title;
         this.description = description;
         this.owner = owner;
@@ -25,6 +26,10 @@ public class Document implements Objet {
         this.creationDate = today;
     }
 
+
+    public Repertoire getRepertoire() {
+        return null;
+    }
 
     public String getTitle() {
         return title;
@@ -46,8 +51,13 @@ public class Document implements Objet {
         return modificationDate;
     }
 
-    public void print() {
-        System.out.println("Document");
+    public void print(int section) {
+        int index = section;
+        while (index >= 0){
+            System.out.print("|===|");
+            index --;
+        }
+        System.out.println(this.title  + this.extention);
     }
 
 }
