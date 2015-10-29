@@ -16,12 +16,15 @@ public class Portail { //PORTAIL_UDS
         GroupeFactory groupInstitutionnel = new GroupeInstitutionnelFactory();
         GroupeFactory groupTypique = new GroupeTypiqueFactory();
 
-        Membre lalie = new Membre("Lalie","Clérel");
+        //Creation d'une liste d'utilisateur
         Membre antoine = new Membre("Antoine","Daniel");
+        Membre lalie = new Membre("Lalie","Clérel");
         Membre françois = new Membre("François", "Caillet");
         Membre anthony = new Membre("Antony", "Di Lisio");
         Membre christine = new Membre("Christine", "Ferraris");
         Membre jack = new Membre("Jack", "Sparrow");
+
+        //Portail (1)--gere--(*)> Membre
         listMembres.add(antoine);
         listMembres.add(lalie);
         listMembres.add(françois);
@@ -29,12 +32,17 @@ public class Portail { //PORTAIL_UDS
         listMembres.add(christine);
         listMembres.add(jack);
 
+        //Antoine crée un group institutionnel
         Groupe groupeT = groupInstitutionnel.creeGroupe("filiere", antoine,"M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
+        //le portail l'ajoute à la liste de ses(antoine) groupe
         antoine.addGroup(groupeT);
+        //Portail (1)--gere--(*)> Group
         listGroups.add(groupeT);
 
+        // Antoine ajoute un répertoire à M2ISCPRO
+        //Member (1)--est gestionnaire--(*)>Group(1)----(*)>Object
         Repertoire sousRepertoire1 = new Repertoire("rep1","", antoine);
-        groupeT.addObject("repertoire", sousRepertoire1,groupeT.getRacine());
+        antoine.getGroups().get(0).addObject("repertoire", sousRepertoire1, groupeT.getRacine());
 
         Repertoire sousSousRepertoire1 = new Repertoire("rep2","", antoine);
         groupeT.addObject("repertoire", sousSousRepertoire1,sousRepertoire1);
