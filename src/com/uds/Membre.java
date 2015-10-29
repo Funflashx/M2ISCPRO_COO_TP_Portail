@@ -3,7 +3,7 @@ package com.uds;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member {
+public class Membre {
     //public String _id; //TODO: Generer un id aléatoirement
 
     public String login;
@@ -25,15 +25,16 @@ public class Member {
         return this.myListGroups;
     }
 
-    public Groupe createGroup(String title,String description) {
+/*    public Groupe createGroup(String title,String description) {
+        //TODO: refactoring pour le nouveau modéle (les groupe se crée par l'intermédiaire de la FactoryGroup)
         Groupe newGroupe = new Groupe(title, description);
         listGroups.add(newGroupe);
         myListGroups.add(newGroupe);
         return newGroupe;
 
-    }
+    }*/
 
-    public Member(String lastname, String firstname/*,String login, String password*/) {
+    public Membre(String lastname, String firstname/*,String login, String password*/) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.fullname = lastname + "" + firstname;

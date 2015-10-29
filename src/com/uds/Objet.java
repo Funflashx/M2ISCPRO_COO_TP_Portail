@@ -2,21 +2,17 @@ package com.uds;
 import java.util.Date;
 
 
-public class Objet {
+interface Objet {
 
     //TODO: patten composite    >Document, Répertoire, Service
 
-    public String titre;
+/*    String titre = null;
+    String description;
+    Date date_creation;
+    Date date_modification;
+    Membre createur;*/
 
-    public String description;
-
-    public Date date_creation;
-
-    public Date date_modification;
-
-    public Member createur;
-
-    public Objet() {
-    }
+    //TODO: methode à implementer ici
+    public void method();
 
 }

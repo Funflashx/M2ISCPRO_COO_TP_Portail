@@ -4,14 +4,14 @@ import java.util.List;
 
 
 
-public class Groupe {
+public abstract class Groupe {
 
     public String titre;
 
 
     public String description;
 
-    public List<Member> ListMember  = new ArrayList<Member>();
+    public List<Membre> listMembre = new ArrayList<Membre>();
 
 
     public List<Objet> ListObjects = new ArrayList<Objet> ();
@@ -27,4 +27,6 @@ public class Groupe {
         this.description = description;
     }
 
+    //TODO:
+    public abstract void method();
 }
