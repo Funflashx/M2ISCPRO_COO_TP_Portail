@@ -6,23 +6,19 @@ import java.util.List;
 
 public abstract class Groupe {
 
+    public Membre owner;
     public String titre;
-
-
     public String description;
+    public List<Membre> listMembre;
+    public List<Objet> ListObjects;
 
-    public List<Membre> listMembre = new ArrayList<Membre>();
+    public Groupe(Membre owner, String title, String description) {
+        this.listMembre = new ArrayList<>();
+        this.ListObjects = new ArrayList<>();
 
+        listMembre.add(owner);
+        this.owner = owner;
 
-    public List<Objet> ListObjects = new ArrayList<Objet> ();
-
-    public void getContent() {
-    }
-
-    public void createObject() {
-    }
-
-    public Groupe(String title, String description) {
         this.titre = title;
         this.description = description;
     }
@@ -30,3 +26,10 @@ public abstract class Groupe {
     //TODO:
     public abstract void method();
 }
+
+/*
+    public void getContent() {
+    }
+
+    public void createObject() {
+    }*/

@@ -4,15 +4,15 @@ import java.util.Date;
 
 interface Objet {
 
-    //TODO: patten composite    >Document, Répertoire, Service
+    public String getTitle();
+    public String getDescription();
+    public Membre getOwner();
+    public Date getCreationDate();
+    public Date getModificationDate();
 
-/*    String titre = null;
-    String description;
-    Date date_creation;
-    Date date_modification;
-    Membre createur;*/
 
+
+    public void print();
     //TODO: methode à implementer ici
-    public void method();
 
 }

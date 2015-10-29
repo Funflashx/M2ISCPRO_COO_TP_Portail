@@ -3,12 +3,12 @@ package com.uds;
 import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Portail { //PORTAIL_UDS
 
     public List<Groupe> ListGroups = new ArrayList<Groupe> ();
     public List<Membre> listMembres = new ArrayList<Membre> ();
+    public List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
 
     public static void main(String[] args) {
         //EXEMPLE FACTORY
@@ -20,12 +20,12 @@ public class Portail { //PORTAIL_UDS
         Groupe groupe = null;
 
         System.out.println("Utilisation de la premiere fabrique à groupe institutionnel");
-        groupe = groupInstitutionnel.getGroupe();
-        groupe.method();
+//        groupe = groupInstitutionnel.getGroupe();
+//        groupe.method();
 
         System.out.println("Utilisation de la seconde fabrique à groupe typique");
-        groupe = groupTypique.getGroupe();
-        groupe.method();
+//        groupe = groupTypique.getGroupe();
+//        groupe.method();
 
         //EXEMPLE Composite
         //src: https://en.wikipedia.org/wiki/Composite_pattern
@@ -52,7 +52,7 @@ public class Portail { //PORTAIL_UDS
         repertoire.add(sousRepertoire2);
 
         //affiche le répertoire !
-        repertoire.method();
+        repertoire.print();
 
     }
 

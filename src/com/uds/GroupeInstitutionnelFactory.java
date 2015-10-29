@@ -5,8 +5,8 @@ package com.uds;
  */
 public class GroupeInstitutionnelFactory extends GroupeFactory {
 
-    protected Groupe creeGroupe() {
-        return new Filiere("","");
+    protected Groupe creeGroupe(Membre owner, String title, String description) {
+        return new Filiere(owner,title, description);
         //TODO: switch?
         // new Composante
         //Laboratoire

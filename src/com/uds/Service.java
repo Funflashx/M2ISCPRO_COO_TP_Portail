@@ -1,20 +1,48 @@
 package com.uds;
 
+import java.util.Date;
+
 public class Service implements Objet {
-    public void method() {
+
+    private String title;
+    private String description;
+    private Membre owner;
+    private Date creationDate;
+    private Date modificationDate;
+
+    public Service(String title, String description, Membre owner) {
+        this.title = title;
+        this.description = description;
+        this.owner = owner;
+
+        Date today = new java.util.Date();
+        this.modificationDate = today;
+        this.creationDate = today;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Membre getOwner() {
+        return owner;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public Date getModificationDate() {
+        return modificationDate;
+    }
+
+    public void print() {
         System.out.println("Service");
     }
-/*    public Service(String titre, String description, Membre membre) {
-        this.createur = membre;
-        String format = "dd/MM/yy H:mm:ss";
-
-        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
-        java.util.Date date = new java.util.Date();
-        this.date_creation = date;
-        this.date_modification = date;
-        this.titre = titre;
-        this.description = description;
-
-    }*/
 
 }
