@@ -10,5 +10,5 @@ public abstract class GroupeFactory {
     //    return creeGroupe();
     //}
 
-    protected abstract Groupe creeGroupe(Membre owner, String title, String description);
+    protected abstract Groupe creeGroupe(String type, Membre owner, String title, String description);
 }
