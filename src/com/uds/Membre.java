@@ -81,4 +81,8 @@ public class Membre {
     public String getSumFullname() {
         return sumFullname;
     }
+
+    public void addGroupe(Membre membre) {
+
+    }
 }

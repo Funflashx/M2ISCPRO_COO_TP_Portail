@@ -11,4 +11,6 @@ public abstract class GroupeFactory {
     //}
 
     protected abstract Groupe creeGroupe(String type, Membre owner, String title, String description);
+
+
 }

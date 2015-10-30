@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Portail { //PORTAIL_UDS
 
@@ -39,7 +40,7 @@ public class Portail { //PORTAIL_UDS
         //Portail (1)--gere--(*)> Group
         listGroups.add(groupeT);
 
-        // Antoine ajoute un répertoire à M2ISCPRO
+        // Antoine ajoute un répertoire "rep1" à M2ISCPRO
         //Member (1)--est gestionnaire--(*)>Group(1)----(*)>Object
         Repertoire sousRepertoire1 = new Repertoire("rep1","", antoine);
         antoine.getGroups().get(0).addObject("repertoire", sousRepertoire1, groupeT.getRacine());
@@ -50,14 +51,45 @@ public class Portail { //PORTAIL_UDS
         Document document = new Document("document", "", antoine);
         groupeT.addObject("document",document,sousSousRepertoire1);
 
+        Document documentCorrection = new Document("document correction", "", antoine);
+        groupeT.addObject("document",documentCorrection,sousSousRepertoire1);
+
         Service service = new Service("efef","fs",antoine);
         groupeT.addObject("service",service,sousRepertoire1);
 
 
+        //Ajouter un membre à un group
+        //TODO: selectGroup()
+        Groupe selected = antoine.getGroups().get(0);
+        //TODO: searchMember("françois")
+        Membre finded = listMembres.get(2);
+        selected.addMember(finded);
+
+        //Lier des documents
+        //TODO: selectDocument()
+        //selected.selectDocument()
+        document.addLink(documentCorrection, "correction");
+        //TODO: displayLinkedDocument()
+        for(Map.Entry<Document, String> entry : document.getlinkedDocuments().entrySet()) {
+            Document linkedDocument = entry.getKey();
+            String lien = entry.getValue();
+
+            System.out.println(document.getTitle() + "<--" + lien + "--" + linkedDocument.getTitle());
+        }
+
+        //Copier la structure d'un groupe
+        //TODO:copy()
+        //Groupe copyGroupT =  groupInstitutionnel.copy(groupeT,"copyM2ISCPRO","une copie de la stucture");
+
+
+
+
+        //Affichage
         displayGroups(antoine.getGroups());
         //displayMembers(listMembres);
         Thread.sleep(1000);
         displayGroup(groupeT);
+
 
        /* //varible de l'environement
         Scanner in = new Scanner(System.in);

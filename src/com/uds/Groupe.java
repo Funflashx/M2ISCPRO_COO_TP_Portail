@@ -49,6 +49,8 @@ public abstract class Groupe {
 
 
     public abstract void addObject(String Type, Objet objet, Repertoire rep);
+
+    public abstract void addMember(Membre membre);
 }
 
 /*

@@ -19,6 +19,9 @@ public class Filiere extends Groupe {
                 rep.add(objet);
     }
 
-
+    @Override
+    public void addMember(Membre membre) {
+        this.getListMembre().add(membre);
+    }
 
 }

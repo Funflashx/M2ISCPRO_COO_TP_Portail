@@ -1,6 +1,7 @@
 package com.uds;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -49,6 +50,10 @@ public class Repertoire implements Objet {
         return modificationDate;
     }
 
+    @Override
+    public HashMap<Document, String> getlinkedDocuments() {
+        return null;
+    }
 
 
     public void print(int section) {
@@ -61,6 +66,11 @@ public class Repertoire implements Objet {
         for (Objet objet : childObjets) {
             objet.print(section + 1);
         }
+    }
+
+    @Override
+    public void addLink(Document document, String label) {
+
     }
 
     //Adds the objet to the composition.

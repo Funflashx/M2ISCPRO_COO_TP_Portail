@@ -1,6 +1,8 @@
 package com.uds;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 public class Service implements Objet {
 
@@ -41,6 +43,11 @@ public class Service implements Objet {
         return modificationDate;
     }
 
+    @Override
+    public HashMap<Document,String> getlinkedDocuments() {
+        return null;
+    }
+
     public void print(int section) {
         int index = section;
         while (index >= 0){
@@ -48,6 +55,11 @@ public class Service implements Objet {
             index --;
         }
         System.out.println((char)27 + "[35;1m" + title + (char)27 + "[0;0m");
+    }
+
+    @Override
+    public void addLink(Document document, String label) {
+
     }
 
 }

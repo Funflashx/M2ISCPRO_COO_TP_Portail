@@ -2,11 +2,12 @@ package com.uds;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class Document implements Objet {
 
-    private List<Document> linkedDocuments;
+    private HashMap<Document,String> linkedDocuments;
 
     private String title;
     private String description;
@@ -16,7 +17,7 @@ public class Document implements Objet {
     private String extention;
 
     public Document(String title, String description, Membre owner) {
-        this.linkedDocuments = new ArrayList<>();
+        this.linkedDocuments = new HashMap<>();
         this.extention = ".doc";
         this.title = title;
         this.description = description;
@@ -51,6 +52,10 @@ public class Document implements Objet {
         return modificationDate;
     }
 
+    public HashMap<Document,String> getlinkedDocuments() {
+        return this.linkedDocuments;
+    }
+
     public void print(int section) {
         int index = section;
         while (index >= 0){
@@ -58,6 +63,11 @@ public class Document implements Objet {
             index --;
         }
         System.out.println(this.title  + this.extention);
+    }
+
+    @Override
+    public void addLink(Document document, String label) {
+        this.getlinkedDocuments().put(document,label);
     }
 
 }
