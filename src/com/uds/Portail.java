@@ -69,6 +69,7 @@ public class Portail { //PORTAIL_UDS
         //TODO:copy()
         //Groupe copyGroupT =  groupInstitutionnel.copy(groupeT,"copyM2ISCPRO","une copie de la stucture");
 
+        Groupe copie = groupeT.copy("copie", "copie");
 
         //Affichage
         displayGroups(antoine.getGroups());

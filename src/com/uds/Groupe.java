@@ -55,7 +55,7 @@ public abstract class Groupe {
      * @param description description du nouveau groupe
      * @return la copie
      */
-    public abstract Groupe copy(Groupe toCopy, String title, String description);
+    public abstract Groupe copy(String title, String description);
     /**
      * @param Type de l'oject à ajouter
      * @param objet l'objet en question

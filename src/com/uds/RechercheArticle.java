@@ -12,8 +12,8 @@ public class RechercheArticle extends Groupe {
         super(groupe, title, decription);
     }
 
-    public Groupe copy(Groupe toCopy, String title, String description) {
-        return new RechercheArticle(toCopy, title, description);
+    public Groupe copy(String title, String description) {
+        return new RechercheArticle(this, title, description);
     }
 
     @Override

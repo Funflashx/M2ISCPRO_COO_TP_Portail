@@ -12,8 +12,8 @@ public class Filiere extends Groupe {
         super(groupe,title,decription);
     }
 
-    public Groupe copy(Groupe toCopy, String title, String description) {
-        return new Filiere(toCopy, title, description);
+    public Groupe copy(String title, String description) {
+        return new Filiere(this, title, description);
     }
 
     @Override

@@ -20,8 +20,8 @@ public class Composante extends Groupe {
         System.out.println("Composante.print()");
     }
 
-    public Groupe copy(Groupe toCopy, String title, String description) {
-        return new Composante(toCopy,title,description);
+    public Groupe copy(String title, String description) {
+        return new Composante(this,title,description);
     }
 
     @Override

@@ -12,8 +12,8 @@ public class Laboratoire extends Groupe {
         super(groupe, title, decription);
     }
 
-    public Groupe copy(Groupe toCopy, String title, String description) {
-        return new Laboratoire(toCopy, title, description);
+    public Groupe copy(String title, String description) {
+        return new Laboratoire(this, title, description);
     }
 
     @Override
