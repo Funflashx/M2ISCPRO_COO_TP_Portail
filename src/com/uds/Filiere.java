@@ -13,10 +13,14 @@ public class Filiere extends Groupe {
         System.out.println("Filiere.print()");
     }
 
+    public Groupe copy(Groupe toCopy, String title, String description) {
+        return null;
+    }
+
     @Override
-    public void addObject(String type, Objet objet, Repertoire rep) {
+    public void addObject(String type, Objet objet, Repertoire repertoire) {
         //TODO: mettre le créa ici
-                rep.add(objet);
+                repertoire.add(objet);
     }
 
     @Override

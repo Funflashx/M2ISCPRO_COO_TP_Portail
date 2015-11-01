@@ -5,6 +5,7 @@ import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Portail { //PORTAIL_UDS
 
@@ -18,8 +19,7 @@ public class Portail { //PORTAIL_UDS
         GroupeFactory groupTypique = new GroupeTypiqueFactory();
 
         //Creation d'une liste d'utilisateur
-        Membre antoine = new Membre("Antoine","Daniel");
-        Membre lalie = new Membre("Lalie","Clérel");
+        Membre antoine = new Membre("Antoine", "Daniel");
         Membre françois = new Membre("François", "Caillet");
         Membre anthony = new Membre("Antony", "Di Lisio");
         Membre christine = new Membre("Christine", "Ferraris");
@@ -27,14 +27,13 @@ public class Portail { //PORTAIL_UDS
 
         //Portail (1)--gere--(*)> Membre
         listMembres.add(antoine);
-        listMembres.add(lalie);
         listMembres.add(françois);
         listMembres.add(anthony);
         listMembres.add(christine);
         listMembres.add(jack);
 
         //Antoine crée un group institutionnel
-        Groupe groupeT = groupInstitutionnel.creeGroupe("filiere", antoine,"M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
+        Groupe groupeT = groupInstitutionnel.creeGroupe("filiere", antoine, "M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
         //le portail l'ajoute à la liste de ses(antoine) groupe
         antoine.addGroup(groupeT);
         //Portail (1)--gere--(*)> Group
@@ -42,53 +41,177 @@ public class Portail { //PORTAIL_UDS
 
         // Antoine ajoute un répertoire "rep1" à M2ISCPRO
         //Member (1)--est gestionnaire--(*)>Group(1)----(*)>Object
-        Repertoire sousRepertoire1 = new Repertoire("rep1","", antoine);
+        Repertoire sousRepertoire1 = new Repertoire("rep1", "", antoine);
         antoine.getGroups().get(0).addObject("repertoire", sousRepertoire1, groupeT.getRacine());
 
-        Repertoire sousSousRepertoire1 = new Repertoire("rep2","", antoine);
-        groupeT.addObject("repertoire", sousSousRepertoire1,sousRepertoire1);
+        Repertoire sousSousRepertoire1 = new Repertoire("rep2", "", antoine);
+        antoine.getGroups().get(0).addObject("repertoire", sousSousRepertoire1, sousRepertoire1);
 
         Document document = new Document("document", "", antoine);
-        groupeT.addObject("document",document,sousSousRepertoire1);
+        antoine.getGroups().get(0).addObject("document", document, sousSousRepertoire1);
 
         Document documentCorrection = new Document("document correction", "", antoine);
-        groupeT.addObject("document",documentCorrection,sousSousRepertoire1);
+        antoine.getGroups().get(0).addObject("document", documentCorrection, sousSousRepertoire1);
 
-        Service service = new Service("efef","fs",antoine);
-        groupeT.addObject("service",service,sousRepertoire1);
+        Service service = new Service("efef", "fs", antoine);
+        antoine.getGroups().get(0).addObject("service", service, sousRepertoire1);
 
 
-        //Ajouter un membre à un group
-        //TODO: selectGroup()
-        Groupe selected = antoine.getGroups().get(0);
-        //TODO: searchMember("françois")
-        Membre finded = listMembres.get(2);
-        selected.addMember(finded);
+
 
         //Lier des documents
-        //TODO: selectDocument()
-        //selected.selectDocument()
+        //selectObject()
+        //selected.selectObject()
         document.addLink(documentCorrection, "correction");
-        //TODO: displayLinkedDocument()
-        for(Map.Entry<Document, String> entry : document.getlinkedDocuments().entrySet()) {
-            Document linkedDocument = entry.getKey();
-            String lien = entry.getValue();
-
-            System.out.println(document.getTitle() + "<--" + lien + "--" + linkedDocument.getTitle());
-        }
+        //displayLinkedDocument()
 
         //Copier la structure d'un groupe
         //TODO:copy()
         //Groupe copyGroupT =  groupInstitutionnel.copy(groupeT,"copyM2ISCPRO","une copie de la stucture");
 
 
-
-
         //Affichage
         displayGroups(antoine.getGroups());
         //displayMembers(listMembres);
+        //Ajouter un membre à un group
+        selectGroup(listGroups);
+        Groupe selected = antoine.getGroups().get(0);
+        //TODO: searchMember("françois")
+        Membre finded = listMembres.get(2);
+        selected.addMember(finded);
         Thread.sleep(1000);
         displayGroup(groupeT);
+
+    }
+
+
+    /**
+     * affiche les document lié à un document
+     * Ex: document<--correction--document correction
+     * @param document
+     */
+    public static void displayDocumentlinked(Objet document) {
+        if (document.getlinkedDocuments().entrySet().size() == 0){
+            System.err.println("Rien n'a afficher");
+        }else{
+            for (Map.Entry<Document, String> entry : document.getlinkedDocuments().entrySet()) {
+                Document linkedDocument = entry.getKey();
+                String lien = entry.getValue();
+                System.out.println(document.getTitle() + "<--" + lien + "--" + linkedDocument.getTitle());
+            }
+        }
+    }
+
+
+    /**
+     * selectionné un objet parmis une liste d'objet
+     * @param listObject
+     * @return l'objet selectioné
+     */
+    public static Objet selectObject(List<Objet> listObject){
+        Scanner in = new Scanner(System.in);
+        String selectedDocument = "";
+        System.out.print("\nQuelle Documents souhaitez vous selectionner? (réponse accepté compris de 0 à " + (listObject.size() - 1) + ")\n");
+        selectedDocument = in.nextLine();
+        try {
+            if (Integer.parseInt(selectedDocument) <= listObject.size()) {
+                return listObject.get(Integer.parseInt(selectedDocument));
+            } else throw new Exception("Saisie incorrecte");
+        } catch (Exception e) {
+            System.err.println(e.getMessage() + " est une saisie incorrect-");
+            selectObject(listObject);
+        }
+        return null;
+    }
+
+    /**
+     * Selection d'un groupe parmis une liste de groupes
+     * @param listGroups (liste de groupes)
+     * @return le groupe selectionné
+     */
+    public static Groupe selectGroup(List<Groupe> listGroups){
+        Scanner in = new Scanner(System.in);
+        String selectedGroup = "";
+        System.out.print("\nQuelle groupe souhaitez vous selectionner? (réponse accepté compris de 0 à " + (listGroups.size() - 1) + ")\n");
+        selectedGroup = in.nextLine();
+        try {
+            if (Integer.parseInt(selectedGroup) <= listGroups.size()) {
+                return listGroups.get(Integer.parseInt(selectedGroup));
+            } else throw new Exception("Saisie incorrecte");
+        } catch (Exception e) {
+            System.err.println(e.getMessage() + " est une saisie incorrect-");
+            selectGroup(listGroups);
+        }
+        return null;
+    }
+
+    /**
+     * Affiche une liste de groupe numéroté de 0 à listGroups.size() - 1
+     * @param listGroups
+     */
+    public static void displayGroups(List<Groupe> listGroups) {
+        if(listGroups.size() == 0){
+            System.out.println((char)27 + "[31;1m" +"LISTE VIDE");
+            defaultDisplay();
+            //displayMenu();
+        }else {
+            for (Groupe g : listGroups) {
+                System.out.println("#" + listGroups.indexOf(g) + "." + (char) 27 + "[30;4m" + g.getTitre());
+                defaultDisplay();
+                System.out.print("=============================\n#created by: "+ (char)27 + "[36;1m" + g.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
+                        + (char)27 + "[30;0m"+ g.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres: " + (char)27 + "[0;1m" + g.getListMembre().size() + (char)27 + "[0;0m\n\n\n");
+            }
+        }
+
+    }
+
+    /**
+     * Affiche un groupe de façon détaillé
+     * @param groupe
+     */
+    public static void displayGroup(Groupe groupe){
+        System.out.print("#" + (char) 27 + "[30;4m" + groupe.getTitre());
+        defaultDisplay();
+        System.out.print("\n=============================\n#created by: "+ (char)27 + "[36;1m" + groupe.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
+                + (char)27 + "[30;0m"+ groupe.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres:\n");
+
+        displayMembers(groupe.getListMembre());
+        groupe.getRacine().print(0);
+    }
+
+    /**
+     * Affiche une liste de membre
+     * Ex: Antoine D. | François C. | Anthony D.
+     * @param listMembers
+     */
+    public static void displayMembers(List<Membre> listMembers){
+        int index = 1;
+        for (Membre m: listMembers){
+            System.out.print((char)27 + "[34;0m" + m.getSumFullname());
+            if (index < listMembers.size()){
+                System.out.print(" | ");
+            }
+            if (index%4 == 0){
+                System.out.print("\n");
+            }
+            if (index == listMembers.size()){
+                System.out.println((char)27 + "[235;1m\n_____________________________");
+                System.out.print((char)27 + "[0;0m");
+            }
+            index++;
+        }
+    }
+
+
+    /**
+     * Remet à zero l'affichage sur le terminal (couleur par defaut et style par defaut)
+     */
+    public static void defaultDisplay(){
+        System.out.print((char)27 + "[0;0m");
+    }
+
+}
+
 
 
        /* //varible de l'environement
@@ -173,7 +296,7 @@ public class Portail { //PORTAIL_UDS
         }
         System.err.println("À bientôt sur le portail UDS");
 */
-    }
+
 
   /*  public static void createObjet(String type){
         switch (type){
@@ -195,56 +318,5 @@ public class Portail { //PORTAIL_UDS
                 "\n2- Créer un groupe");
         return in.nextLine();
     }*/
-
-    public static void displayGroups(List<Groupe> groupes) {
-        if(groupes.size() == 0){
-            System.out.println((char)27 + "[31;1m" +"LISTE VIDE");
-            clear();
-            //displayMenu();
-        }else {
-            for (Groupe g : groupes) {
-                System.out.println("#" + groupes.indexOf(g) + "." + (char) 27 + "[30;4m" + g.getTitre());
-                clear();
-                System.out.print("=============================\n#created by: "+ (char)27 + "[36;1m" + g.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
-                        + (char)27 + "[30;0m"+ g.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres: " + (char)27 + "[0;1m" + g.getListMembre().size() + (char)27 + "[0;0m\n\n\n");
-            }
-        }
-
-    }
-
-    public static void displayGroup(Groupe g){
-        System.out.print("#" + (char) 27 + "[30;4m" + g.getTitre());
-        clear();
-        System.out.print("\n=============================\n#created by: "+ (char)27 + "[36;1m" + g.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
-                + (char)27 + "[30;0m"+ g.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres:\n");
-
-        displayMembers(g.getListMembre());
-        g.getRacine().print(0);
-    }
-
-    public static void displayMembers(List<Membre> membres){
-        int index = 1;
-        for (Membre m: membres){
-            System.out.print((char)27 + "[34;0m" + m.getSumFullname());
-            if (index < membres.size()){
-                System.out.print("|");
-            }
-            if (index%4 == 0){
-                System.out.print("\n");
-            }
-            if (index == membres.size()){
-                System.out.println((char)27 + "[235;1m\n_____________________________");
-                System.out.print((char)27 + "[0;0m");
-            }
-            index++;
-        }
-    }
-
-
-    public static void clear(){
-        System.out.print((char)27 + "[0;0m");
-    }
-
-}
 
 

@@ -19,5 +19,5 @@ public class GroupeTypiqueFactory extends GroupeFactory {
         return null;
 
     }
-    
+
 }
