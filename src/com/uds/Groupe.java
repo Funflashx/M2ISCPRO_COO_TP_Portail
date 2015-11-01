@@ -1,4 +1,5 @@
 package com.uds;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +87,13 @@ public abstract class Groupe {
         this.description = description;
     }
 
+    public Groupe(Groupe groupe, String title, String description){
+        this.listMembre = groupe.getListMembre();
+        this.repertoire = groupe.repertoire; //TODO: supprimer document et service, juste l'architecture
+        this.owner = groupe.owner;
+        this.titre = title;
+        this.description = description;
+    }
 }
 
 

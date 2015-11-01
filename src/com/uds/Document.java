@@ -65,7 +65,6 @@ public class Document implements Objet {
         System.out.println(this.title  + this.extention);
     }
 
-    @Override
     public void addLink(Document document, String label) {
         this.getlinkedDocuments().put(document,label);
     }

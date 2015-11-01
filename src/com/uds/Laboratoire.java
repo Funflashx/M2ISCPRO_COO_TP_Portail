@@ -8,12 +8,12 @@ public class Laboratoire extends Groupe {
         super(owner, title, description);
     }
 
-    public void method() {
-        System.out.println("Laboratoire.print()");
+    public  Laboratoire(Groupe groupe, String title, String decription){
+        super(groupe, title, decription);
     }
 
     public Groupe copy(Groupe toCopy, String title, String description) {
-        return null;
+        return new Laboratoire(toCopy, title, description);
     }
 
     @Override

@@ -8,12 +8,12 @@ public class RechercheProjet extends Groupe {
         super(owner, title, description);
     }
 
-    public void method() {
-        System.out.println("RechercheProjet.print()");
+    public  RechercheProjet(Groupe groupe, String title, String decription){
+        super(groupe, title, decription);
     }
 
     public Groupe copy(Groupe toCopy, String title, String description) {
-        return null;
+        return new RechercheProjet(toCopy, title, description);
     }
 
     @Override

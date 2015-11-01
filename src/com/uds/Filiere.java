@@ -8,24 +8,28 @@ public class Filiere extends Groupe {
         super(owner, title, description);
     }
 
-    //TODO:
-    public void method() {
-        System.out.println("Filiere.print()");
+    public  Filiere(Groupe groupe, String title, String decription){
+        super(groupe,title,decription);
     }
 
     public Groupe copy(Groupe toCopy, String title, String description) {
-        return null;
+        return new Filiere(toCopy, title, description);
     }
 
     @Override
     public void addObject(String type, Objet objet, Repertoire repertoire) {
         //TODO: mettre le créa ici
-                repertoire.add(objet);
+        repertoire.add(objet);
     }
 
     @Override
     public void addMember(Membre membre) {
         this.getListMembre().add(membre);
     }
+
+/*    //TODO:
+    public void method() {
+        System.out.println("Filiere.print()");
+    }*/
 
 }

@@ -1,5 +1,7 @@
 package com.uds;
 
+import javax.swing.*;
+
 /**
  * Created by francoiscaillet on 29/10/15.
  */
@@ -9,13 +11,17 @@ public class Composante extends Groupe {
         super(owner ,title, description);
     }
 
+    public Composante(Groupe groupe, String title, String description){
+        super(groupe,title,description);
+    }
+
     //TODO:
     public void method(){
         System.out.println("Composante.print()");
     }
 
     public Groupe copy(Groupe toCopy, String title, String description) {
-        return null;
+        return new Composante(toCopy,title,description);
     }
 
     @Override
