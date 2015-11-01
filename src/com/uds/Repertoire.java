@@ -10,7 +10,6 @@ public class Repertoire implements Objet {
 
     //Collection of child objects.
     private List<Objet> childObjets;
-
     private String title;
     private String description;
     private Membre owner;
@@ -33,29 +32,27 @@ public class Repertoire implements Objet {
     public String getTitle() {
         return title;
     }
-
     public String getDescription() {
         return description;
     }
-
     public Membre getOwner() {
         return owner;
     }
-
     public Date getCreationDate() {
         return creationDate;
     }
-
     public Date getModificationDate() {
         return modificationDate;
     }
-
-    @Override
     public HashMap<Document, String> getlinkedDocuments() {
         return null;
     }
 
 
+    /**
+     * @param section indentation des dossiers
+     * le répertoire affiche ses enfants
+     */
     public void print(int section) {
         int index = section;
         while (index >= 0){
@@ -68,17 +65,29 @@ public class Repertoire implements Objet {
         }
     }
 
-    @Override
-    public void addLink(Document document, String label) {
 
+    /**
+     * @param document document à lier avec le courant
+     * @param label    libéllé de cette relation
+     * ne fait rien ici,
+     * affiche une erreur
+     */
+    public void addLink(Document document, String label) {
+        System.err.println("le répertoire ne peut pas être lié à un document");
     }
 
-    //Adds the objet to the composition.
+
+    /**
+     * @param objet ajoute l'objet à la composition
+     */
     public void add(Objet objet) {
         childObjets.add(objet);
     }
 
-    //Removes the objet from the composition.
+
+    /**
+     * @param objet retire l'objet de la composition
+     */
     public void remove(Objet objet) {
         childObjets.remove(objet);
     }
@@ -86,16 +95,3 @@ public class Repertoire implements Objet {
 
 
 }
-
-/*    public Repertoire(String titre, String description, Membre membre) {
-        this.createur = membre;
-        String format = "dd/MM/yy H:mm:ss";
-
-        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
-        java.util.Date date = new java.util.Date();
-        this.date_creation = date;
-        this.date_modification = date;
-        this.titre = titre;
-        this.description = description;
-
-    }*/

@@ -2,7 +2,6 @@ package com.uds;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class Service implements Objet {
 

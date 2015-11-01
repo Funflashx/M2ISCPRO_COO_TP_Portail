@@ -1,14 +1,7 @@
 package com.uds;
 
-/**
- * Created by francoiscaillet on 29/10/15.
- */
-public abstract class GroupeFactory {
 
-    //TODO:
-    //public Groupe getGroupe() {
-    //    return creeGroupe();
-    //}
+public abstract class GroupeFactory {
 
     /**
      * Crée un groupe
