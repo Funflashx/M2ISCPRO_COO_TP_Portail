@@ -78,9 +78,7 @@ public class Menu {
 
 
     }
-    private void selectHome(){
 
-    }
 
     private void displayDSIHome() {
         boolean disconnected = false;
@@ -132,8 +130,8 @@ public class Menu {
 
         boolean disconnected = false;
         do {
-            System.out.println("STUDENT_HOME########################\n" +
-                    "--- Veillez selectionner une action:\n" +
+            System.out.println("STUDENT_HOME########################\n" + Portail.currentMember.getFullname() +
+                    "\n--- Veillez selectionner une action:\n" +
                     "   --- 1) Creer un groupe\n" +
                     "   --- 2) Accéder à un groupe\n" +
                     "   --- 3) Ajouter un membre à un groupe\n" +
@@ -175,7 +173,37 @@ public class Menu {
     }
 
     private void accessToGroup() {
-        //TODO: accessToGroup
+        Groupe selected = Portail.selectGroup(Portail.currentMember.getGroups());
+        if (selected != null){
+            Portail.displayGroup(selected);
+            System.out.println("\n--- Selectionnez une action:\n" +
+                    "   --- 1) Lier des documents\n" +
+                    "   --- 2) Ajouter un objet\n" +
+                    "   --- 3) Ajouter un membre\n" +
+                    "   --- 4) Copier le groupe\n" +
+                    "   --- 5) Retour aux groupes\n" +
+                    "   --- 6) Retour au menu principale\n");
+            int selection = input.nextInt();
+            input.nextLine();
+            //TODO: group menue
+            switch (selection) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    System.out.println("Invalid selection.");
+                    break;
+            }
+        }
     }
 
     private void createGroup() {
@@ -211,22 +239,19 @@ public class Menu {
             input.nextLine();
             switch (selection){
                 case 1:
-                    Portail.currentMember = new Etudiant(fullnameSplited[0], fullnameSplited[1], this.chooseFiliere());
                     this.displayStudentHome();
                     break;
                 case 2:
-                    Portail.currentMember = new Enseignant(fullnameSplited[0], fullnameSplited[1]);
                     this.displayTeacherHome();
                     break;
                 case 3:
-                    Portail.currentMember = new DSI(fullnameSplited[0], fullnameSplited[1]);
                     this.displayDSIHome();
                     break;
                 case 4:
                     break;
                 default:
                     System.out.println("Invalid selection.");
-                    signIn();
+                    connexion();
                     break;
             }
         }

@@ -18,15 +18,6 @@ public class Membre {
 
     public List<Groupe> listGroups = new ArrayList<Groupe> ();
 
-    public List<Groupe> myListGroups = new ArrayList<Groupe> ();
-
-    public List<Groupe> getListGroups() {
-        return this.listGroups;
-    }
-
-    public List<Groupe> getMyListGroups() {
-        return this.myListGroups;
-    }
 
 /*    public Groupe createGroup(String title,String description) {
         //TODO: refactoring pour le nouveau modéle (les groupe se crée par l'intermédiaire de la FactoryGroup)

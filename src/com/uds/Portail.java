@@ -26,17 +26,27 @@ public class Portail {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-/*
+
         //Lancement des Usine !!! Tchou tchou
         GroupeFactory groupInstitutionnel = new GroupeInstitutionnelFactory();
         GroupeFactory groupTypique = new GroupeTypiqueFactory();
 
+
+
+
+        //Filière
+        DSI jack = new DSI("Jack", "Sparrow");
+        Filiere filiere = new Filiere(jack,"M2ISCSTICINFO", "Groupe des étudiant de master 2 STIC INFO");
+        listGroupFiliere.add(filiere);
+
         //Creation d'une liste d'utilisateur
-        Membre antoine = new Membre("Antoine", "Daniel");
-        Membre françois = new Membre("François", "Caillet");
-        Membre anthony = new Membre("Antony", "Di Lisio");
-        Membre christine = new Membre("Christine", "Ferraris");
-        Membre jack = new Membre("Jack", "Sparrow");
+        Etudiant antoine = new Etudiant("Antoine", "Daniel",filiere);
+        Etudiant françois = new Etudiant("François", "Caillet",filiere);
+        Etudiant anthony = new Etudiant("Antony", "Di Lisio",filiere);
+        Enseignant christine = new Enseignant("Christine", "Ferraris");
+
+
+
 
         //Portail (1)--gere--(*)> Membre
         //Chaque membre est ajouté à la liste des mebre du portail
@@ -45,6 +55,7 @@ public class Portail {
         listMembres.add(anthony);
         listMembres.add(christine);
         listMembres.add(jack);
+
 
         //Antoine crée un group institutionnel
         Groupe groupeTest = groupInstitutionnel.creeGroupe("filiere", antoine, "M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
@@ -71,6 +82,8 @@ public class Portail {
         antoine.getGroups().get(0).addObject("service", service, sousRepertoire1);
 
 
+
+/*
 
 
         //Lier des documents
@@ -151,19 +164,24 @@ public class Portail {
      * @return le groupe selectionné
      */
     public static Groupe selectGroup(List<Groupe> listGroups){
-        Scanner in = new Scanner(System.in);
-        String selectedGroup = "";
-        System.out.print("\nQuelle groupe souhaitez vous selectionner? (réponse accepté compris de 0 à " + (listGroups.size() - 1) + ")\n");
-        selectedGroup = in.nextLine();
-        try {
-            if (Integer.parseInt(selectedGroup) <= listGroups.size()) {
-                return listGroups.get(Integer.parseInt(selectedGroup));
-            } else throw new Exception("Saisie incorrecte");
-        } catch (Exception e) {
-            System.err.println(e.getMessage() + " est une saisie incorrect-");
-            selectGroup(listGroups);
+        displayGroups(listGroups);
+        if (listGroups.size()>0) {
+            Scanner in = new Scanner(System.in);
+            String selectedGroup = "";
+            System.out.print("\nQuelle groupe souhaitez vous selectionner? (réponse accepté compris de 0 à " + (listGroups.size() - 1) + ")\n");
+            selectedGroup = in.nextLine();
+            try {
+                if (Integer.parseInt(selectedGroup) <= listGroups.size()) {
+                    return listGroups.get(Integer.parseInt(selectedGroup));
+                } else throw new Exception("Saisie incorrecte");
+            } catch (Exception e) {
+                System.err.println(e.getMessage() + " est une saisie incorrect-");
+                selectGroup(listGroups);
+            }
+            return null;
+        }else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -233,8 +251,13 @@ public class Portail {
 
 
     public static Membre searchMember(String fullname) {
+        for (Membre membres: listMembres){
+            if (membres.getFullname().equals(fullname)){
+                return membres;
+            }
+        }
+
         return null;
-        //TODO: search a member
     }
 }
 
