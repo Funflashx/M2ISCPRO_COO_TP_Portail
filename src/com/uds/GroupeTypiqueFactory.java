@@ -1,8 +1,5 @@
 package com.uds;
 
-/**
- * Created by francoiscaillet on 29/10/15.
- */
 public class GroupeTypiqueFactory extends GroupeFactory {
     protected Groupe creeGroupe(String type, Membre owner, String title, String description) {
         try {

@@ -23,13 +23,15 @@ public class Portail {
     public static List<Membre> listMembres = new ArrayList<Membre> ();
     public static List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
     public static Membre currentMember = null;
+    public static GroupeFactory groupInstitutionnel;
+    public static GroupeFactory groupTypique;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
 
         //Lancement des Usine !!! Tchou tchou
-        GroupeFactory groupInstitutionnel = new GroupeInstitutionnelFactory();
-        GroupeFactory groupTypique = new GroupeTypiqueFactory();
+        groupInstitutionnel = new GroupeInstitutionnelFactory();
+        groupTypique = new GroupeTypiqueFactory();
 
 
 
@@ -42,7 +44,7 @@ public class Portail {
         //Creation d'une liste d'utilisateur
         Etudiant antoine = new Etudiant("Antoine", "Daniel",filiere);
         Etudiant françois = new Etudiant("François", "Caillet",filiere);
-        Etudiant anthony = new Etudiant("Antony", "Di Lisio",filiere);
+        Etudiant anthony = new Etudiant("Anthony", "Di Lisio",filiere);
         Enseignant christine = new Enseignant("Christine", "Ferraris");
 
 

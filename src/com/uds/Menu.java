@@ -130,8 +130,8 @@ public class Menu {
 
         boolean disconnected = false;
         do {
-            System.out.println("STUDENT_HOME########################\n" + Portail.currentMember.getFullname() +
-                    "\n--- Veillez selectionner une action:\n" +
+            System.out.println("STUDENT_HOME########################\n" +
+                    "--- Veillez selectionner une action:\n" +
                     "   --- 1) Creer un groupe\n" +
                     "   --- 2) Accéder à un groupe\n" +
                     "   --- 3) Ajouter un membre à un groupe\n" +
@@ -169,7 +169,19 @@ public class Menu {
     }
 
     private void addMemberToGroup() {
-        //TODO: addMemberToGroup()
+        Groupe selectedGroup = Portail.selectGroup(Portail.currentMember.getGroups());
+        System.out.println("Veuillez indiquer le nom et prenom du membre à ajouter:");
+        String fullname = input.nextLine();
+        Membre addedMember = Portail.searchMember(fullname);
+        //le portail l'ajoute à la liste de ses groupe
+        if (addedMember != null && selectedGroup != null) {
+            selectedGroup.addMember(addedMember);
+            addedMember.addGroup(selectedGroup);
+        }else {
+            addMemberToGroup();
+        }
+
+
     }
 
     private void accessToGroup() {
@@ -207,7 +219,125 @@ public class Menu {
     }
 
     private void createGroup() {
-        //TODO: createGroup
+        System.out.println("--- Veillez selectionner le type de groupe que vous souhaitez creer:\n" +
+                "   --- 1) Groupe Institutionnel\n" +
+                "   --- 2) Groupe Typique\n" +
+                "   --- 3) Retour");
+        int selection = input.nextInt();
+        input.nextLine();
+
+        switch (selection) {
+            case 1:
+                createGroupInstitutionnel();
+                break;
+            case 2:
+                createGroupTypique();
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Invalid selection.");
+                createGroup();
+                break;
+        }
+    }
+
+    private void createGroupInstitutionnel() {
+        System.out.println("--- Veillez selectionner le type de groupe que vous souhaitez creer:\n" +
+                "   --- 1) Filière\n" +
+                "   --- 2) Composante\n" +
+                "   --- 3) Laboratoire\n" +
+                "   --- 4) Retour");
+        int type = input.nextInt();
+        input.nextLine();
+        System.out.println("Indiquer le titre du groupe:");
+        String title = input.nextLine();
+        System.out.println("Indiquer la description du groupe:");
+        String description = input.nextLine();
+        Groupe groupeInstitutionnel;
+
+        switch (type){
+            case 1:
+                groupeInstitutionnel = Portail.groupInstitutionnel.creeGroupe("filiere", Portail.currentMember, title , description );
+                //le portail l'ajoute à la liste de ses groupe
+                Portail.currentMember.addGroup(groupeInstitutionnel);
+                //Portail (1)--gere--(*)> Group
+                Portail.listGroups.add(groupeInstitutionnel);
+                System.out.println("Voici le groupe que vous venez de creer:");
+                Portail.displayGroup(groupeInstitutionnel);
+                break;
+            case 2:
+                groupeInstitutionnel = Portail.groupInstitutionnel.creeGroupe("composante", Portail.currentMember, title , description );
+                //le portail l'ajoute à la liste de ses groupe
+                Portail.currentMember.addGroup(groupeInstitutionnel);
+                //Portail (1)--gere--(*)> Group
+                Portail.listGroups.add(groupeInstitutionnel);
+                System.out.println("Voici le groupe que vous venez de creer:");
+                Portail.displayGroup(groupeInstitutionnel);
+                break;
+            case 3:
+                groupeInstitutionnel = Portail.groupInstitutionnel.creeGroupe("laboratoire", Portail.currentMember, title , description );
+                //le portail l'ajoute à la liste de ses groupe
+                Portail.currentMember.addGroup(groupeInstitutionnel);
+                //Portail (1)--gere--(*)> Group
+                Portail.listGroups.add(groupeInstitutionnel);
+                System.out.println("Voici le groupe que vous venez de creer:");
+                Portail.displayGroup(groupeInstitutionnel);
+                break;
+            case 4:
+                break;
+            default:
+                System.out.println("Invalid selection.");
+                createGroupInstitutionnel();
+                break;
+
+
+        }
+
+    }
+
+    private void createGroupTypique() {
+        System.out.println("--- Veillez selectionner le type de groupe que vous souhaitez creer:\n" +
+                "   --- 1) Recherche Article\n" +
+                "   --- 2) Recherche Projet\n" +
+                "   --- 4) Retour");
+
+        int type = input.nextInt();
+        input.nextLine();
+        System.out.println("Indiquer le titre du groupe:");
+        String title = input.nextLine();
+        System.out.println("Indiquer la description du groupe:");
+        String description = input.nextLine();
+        Groupe groupeTypique;
+
+        switch (type) {
+            case 1:
+                groupeTypique = Portail.groupTypique.creeGroupe("recherche-article", Portail.currentMember, title, description);
+                //le portail l'ajoute à la liste de ses groupe
+                Portail.currentMember.addGroup(groupeTypique);
+                //Portail (1)--gere--(*)> Group
+                Portail.listGroups.add(groupeTypique);
+                System.out.println("Voici le groupe que vous venez de creer:");
+                Portail.displayGroup(groupeTypique);
+                break;
+            case 2:
+                groupeTypique = Portail.groupTypique.creeGroupe("recherche-projet", Portail.currentMember, title, description);
+                //le portail l'ajoute à la liste de ses groupe
+                Portail.currentMember.addGroup(groupeTypique);
+                //Portail (1)--gere--(*)> Group
+                Portail.listGroups.add(groupeTypique);
+                System.out.println("Voici le groupe que vous venez de creer:\n");
+                Portail.displayGroup(groupeTypique);
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Invalid selection.");
+                createGroupInstitutionnel();
+                break;
+        }
+
+
     }
 
     private Filiere chooseFiliere() {
