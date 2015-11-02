@@ -7,14 +7,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Portail { //PORTAIL_UDS
+/**
+ * LE PORTAIL DE L'UNIVERSITÉ DE SAVOIE
+ * IL S'AGIT DU CLIENT DE L'APPLICATION
+ */
+public class Portail {
 
+    /**
+     * Le portail connait tout les groupe
+     */
     public static List<Groupe> listGroups = new ArrayList<Groupe> ();
+    /**
+     * Le portail connait tout ses membres
+     */
     public static List<Membre> listMembres = new ArrayList<Membre> ();
     public static List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
+    public static Membre currentMember = null;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
+/*
+        //Lancement des Usine !!! Tchou tchou
         GroupeFactory groupInstitutionnel = new GroupeInstitutionnelFactory();
         GroupeFactory groupTypique = new GroupeTypiqueFactory();
 
@@ -26,6 +39,7 @@ public class Portail { //PORTAIL_UDS
         Membre jack = new Membre("Jack", "Sparrow");
 
         //Portail (1)--gere--(*)> Membre
+        //Chaque membre est ajouté à la liste des mebre du portail
         listMembres.add(antoine);
         listMembres.add(françois);
         listMembres.add(anthony);
@@ -33,16 +47,16 @@ public class Portail { //PORTAIL_UDS
         listMembres.add(jack);
 
         //Antoine crée un group institutionnel
-        Groupe groupeT = groupInstitutionnel.creeGroupe("filiere", antoine, "M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
-        //le portail l'ajoute à la liste de ses(antoine) groupe
-        antoine.addGroup(groupeT);
+        Groupe groupeTest = groupInstitutionnel.creeGroupe("filiere", antoine, "M2ISCPRO", "Groupe associée au master 2 ISC PRO STIC de l'université de savoie");
+        //le portail l'ajoute à la liste de ses groupe
+        antoine.addGroup(groupeTest);
         //Portail (1)--gere--(*)> Group
-        listGroups.add(groupeT);
+        listGroups.add(groupeTest);
 
-        // Antoine ajoute un répertoire "rep1" à M2ISCPRO
+        // Antoine ajoute un répertoire "rep1" au groupe "M2ISCPRO"
         //Member (1)--est gestionnaire--(*)>Group(1)----(*)>Object
         Repertoire sousRepertoire1 = new Repertoire("rep1", "", antoine);
-        antoine.getGroups().get(0).addObject("repertoire", sousRepertoire1, groupeT.getRacine());
+        antoine.getGroups().get(0).addObject("repertoire", sousRepertoire1, groupeTest.getRacine());
 
         Repertoire sousSousRepertoire1 = new Repertoire("rep2", "", antoine);
         antoine.getGroups().get(0).addObject("repertoire", sousSousRepertoire1, sousRepertoire1);
@@ -53,7 +67,7 @@ public class Portail { //PORTAIL_UDS
         Document documentCorrection = new Document("document correction", "", antoine);
         antoine.getGroups().get(0).addObject("document", documentCorrection, sousSousRepertoire1);
 
-        Service service = new Service("efef", "fs", antoine);
+        Service service = new Service("doodle", "sondage sur la faim du monde", antoine);
         antoine.getGroups().get(0).addObject("service", service, sousRepertoire1);
 
 
@@ -67,9 +81,9 @@ public class Portail { //PORTAIL_UDS
 
         //Copier la structure d'un groupe
         //TODO:copy()
-        //Groupe copyGroupT =  groupInstitutionnel.copy(groupeT,"copyM2ISCPRO","une copie de la stucture");
+        //Groupe copyGroupT =  groupInstitutionnel.copy(groupeTest,"copyM2ISCPRO","une copie de la stucture");
 
-        Groupe copie = groupeT.copy("copie", "copie");
+        Groupe copie = groupeTest.copy("copie", "copie");
 
         //Affichage
         displayGroups(antoine.getGroups());
@@ -81,7 +95,13 @@ public class Portail { //PORTAIL_UDS
         Membre finded = listMembres.get(2);
         selected.addMember(finded);
         Thread.sleep(1000);
-        displayGroup(groupeT);
+        displayGroup(groupeTest);
+
+*/
+
+        Menu menu = new Menu();
+        menu.display();
+
 
     }
 
@@ -211,6 +231,11 @@ public class Portail { //PORTAIL_UDS
         System.out.print((char)27 + "[0;0m");
     }
 
+
+    public static Membre searchMember(String fullname) {
+        return null;
+        //TODO: search a member
+    }
 }
 
 

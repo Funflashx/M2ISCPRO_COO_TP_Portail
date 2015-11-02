@@ -42,7 +42,6 @@ public class Service implements Objet {
         return modificationDate;
     }
 
-    @Override
     public HashMap<Document,String> getlinkedDocuments() {
         return null;
     }
@@ -56,9 +55,8 @@ public class Service implements Objet {
         System.out.println((char)27 + "[35;1m" + title + (char)27 + "[0;0m");
     }
 
-    @Override
     public void addLink(Document document, String label) {
-
+        System.err.println("le service ne peut pas être lié à un document");
     }
 
 }

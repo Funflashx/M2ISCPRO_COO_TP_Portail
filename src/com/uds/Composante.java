@@ -1,6 +1,5 @@
 package com.uds;
 
-import javax.swing.*;
 
 public class Composante extends Groupe {
 
