@@ -1,10 +1,13 @@
 package com.uds;
-import javax.swing.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
+ */
 public abstract class Groupe {
 
     private Membre owner;
@@ -49,8 +52,7 @@ public abstract class Groupe {
     }
 
     /**
-     * copie la structure d'un groupe
-     * @param toCopy Groupe à copier
+     * copie la structure du groupe
      * @param title titre du nouveau groupe
      * @param description description du nouveau groupe
      * @return la copie
@@ -72,9 +74,9 @@ public abstract class Groupe {
 
     /**
      * super constructeur de groupe
-     * @param owner
-     * @param title
-     * @param description
+     * @param owner créateur du groupe
+     * @param title titre du groupe
+     * @param description du groupe
      */
     public Groupe(Membre owner, String title, String description) {
         this.listMembre = new ArrayList<>();
@@ -89,17 +91,9 @@ public abstract class Groupe {
 
     public Groupe(Groupe groupe, String title, String description){
         this.listMembre = groupe.getListMembre();
-        this.repertoire = groupe.repertoire; //TODO: supprimer document et service, juste l'architecture
+        this.repertoire = groupe.repertoire; //TODO: supprimer document et service, juste l'architecture see :
         this.owner = groupe.owner;
         this.titre = title;
         this.description = description;
     }
 }
-
-
-/*
-    public void getContent() {
-    }
-
-    public void createObject() {
-    }*/

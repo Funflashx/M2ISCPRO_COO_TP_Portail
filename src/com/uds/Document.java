@@ -1,10 +1,12 @@
 package com.uds;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
+/**
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
+ */
 public class Document implements Objet {
 
     private HashMap<Document,String> linkedDocuments;
@@ -25,11 +27,6 @@ public class Document implements Objet {
         Date today = new java.util.Date();
         this.modificationDate = today;
         this.creationDate = today;
-    }
-
-
-    public Repertoire getRepertoire() {
-        return null;
     }
 
     public String getTitle() {
@@ -64,6 +61,7 @@ public class Document implements Objet {
         }
         System.out.println(this.title  + this.extention);
     }
+
 
     public void addLink(Document document, String label) {
         this.getlinkedDocuments().put(document,label);

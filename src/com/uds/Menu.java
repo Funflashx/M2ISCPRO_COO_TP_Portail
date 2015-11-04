@@ -3,7 +3,8 @@ package com.uds;
 import java.util.Scanner;
 
 /**
- * Created by francoiscaillet on 01/11/2015.
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
  */
 public class Menu {
 
@@ -364,7 +365,6 @@ public class Menu {
                     "   --- 3) Membre de la DSI\n" +
                     "   --- 4) Retour");
 
-            String[] fullnameSplited = fullname.split(" ");
             int selection = input.nextInt();
             input.nextLine();
             switch (selection){

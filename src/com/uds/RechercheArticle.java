@@ -1,7 +1,8 @@
 package com.uds;
 
 /**
- * Created by francoiscaillet on 29/10/15.
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
  */
 public class RechercheArticle extends Groupe {
     public RechercheArticle(Membre owner, String title, String description) {
@@ -16,13 +17,11 @@ public class RechercheArticle extends Groupe {
         return new RechercheArticle(this, title, description);
     }
 
-    @Override
     public void addObject(String type, Objet objet, Repertoire repertoire) {
         //TODO: mettre le créa ici
         repertoire.add(objet);
     }
 
-    @Override
     public void addMember(Membre membre) {
         this.getListMembre().add(membre);
     }

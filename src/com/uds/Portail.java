@@ -8,20 +8,20 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * LE PORTAIL DE L'UNIVERSITÉ DE SAVOIE
- * IL S'AGIT DU CLIENT DE L'APPLICATION
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
  */
 public class Portail {
 
     /**
      * Le portail connait tout les groupe
      */
-    public static List<Groupe> listGroups = new ArrayList<Groupe> ();
+    public static List<Groupe> listGroups = new ArrayList<> ();
     /**
      * Le portail connait tout ses membres
      */
-    public static List<Membre> listMembres = new ArrayList<Membre> ();
-    public static List<Filiere> listGroupFiliere = new ArrayList<Filiere>();
+    public static List<Membre> listMembres = new ArrayList<> ();
+    public static List<Filiere> listGroupFiliere = new ArrayList<>();
     public static Membre currentMember = null;
     public static GroupeFactory groupInstitutionnel;
     public static GroupeFactory groupTypique;
@@ -86,8 +86,6 @@ public class Portail {
 
 
 /*
-
-
         //Lier des documents
         //selectObject()
         //selected.selectObject()
@@ -122,9 +120,8 @@ public class Portail {
 
 
     /**
-     * affiche les document lié à un document
      * Ex: document<--correction--document correction
-     * @param document
+     * @param document dont il faut afficher les liens
      */
     public static void displayDocumentlinked(Objet document) {
         if (document.getlinkedDocuments().entrySet().size() == 0){
@@ -140,13 +137,13 @@ public class Portail {
 
 
     /**
-     * selectionné un objet parmis une liste d'objet
-     * @param listObject
+     * selectionne un objet
+     * @param listObject parmis une liste d'objet
      * @return l'objet selectioné
      */
     public static Objet selectObject(List<Objet> listObject){
         Scanner in = new Scanner(System.in);
-        String selectedDocument = "";
+        String selectedDocument;
         System.out.print("\nQuelle Documents souhaitez vous selectionner? (réponse accepté compris de 0 à " + (listObject.size() - 1) + ")\n");
         selectedDocument = in.nextLine();
         try {
@@ -169,7 +166,7 @@ public class Portail {
         displayGroups(listGroups);
         if (listGroups.size()>0) {
             Scanner in = new Scanner(System.in);
-            String selectedGroup = "";
+            String selectedGroup;
             System.out.print("\nQuelle groupe souhaitez vous selectionner? (réponse accepté compris de 0 à " + (listGroups.size() - 1) + ")\n");
             selectedGroup = in.nextLine();
             try {
@@ -188,7 +185,7 @@ public class Portail {
 
     /**
      * Affiche une liste de groupe numéroté de 0 à listGroups.size() - 1
-     * @param listGroups
+     * @param listGroups liste de groupe numéroté de 0 à listGroups.size() - 1
      */
     public static void displayGroups(List<Groupe> listGroups) {
         if(listGroups.size() == 0){
@@ -206,9 +203,10 @@ public class Portail {
 
     }
 
+
     /**
      * Affiche un groupe de façon détaillé
-     * @param groupe
+     * @param groupe le groupe
      */
     public static void displayGroup(Groupe groupe){
         System.out.print("#" + (char) 27 + "[30;4m" + groupe.getTitre());
@@ -223,7 +221,7 @@ public class Portail {
     /**
      * Affiche une liste de membre
      * Ex: Antoine D. | François C. | Anthony D.
-     * @param listMembers
+     * @param listMembers une liste de membre
      */
     public static void displayMembers(List<Membre> listMembers){
         int index = 1;
@@ -237,7 +235,7 @@ public class Portail {
             }
             if (index == listMembers.size()){
                 System.out.println((char)27 + "[235;1m\n_____________________________");
-                System.out.print((char)27 + "[0;0m");
+                defaultDisplay();
             }
             index++;
         }
@@ -262,112 +260,3 @@ public class Portail {
         return null;
     }
 }
-
-
-
-       /* //varible de l'environement
-        Scanner in = new Scanner(System.in);
-        String nom;
-        String prenom;
-        boolean actif = true;
-        String selectedItem;
-
-        //- Authentification
-        System.out.println("Bienvenue sur le portail UDS.\n=============================");
-        System.out.println("Entrez votre nom:");
-        nom = in.nextLine();
-        System.out.println("Entrez votre prenom:");
-        prenom = in.nextLine();
-
-        //création du membre
-        Membre newUser = new Membre(nom, prenom);
-
-        //- Système
-        while (actif) {
-            selectedItem = displayMenu(); //affiche le menu
-
-            switch (selectedItem) {
-                case "1":
-                    String selectedGroup;
-                    List<Groupe> listeGroupe = newUser.getListGroups();
-                    displayGroups(listeGroupe);
-                    System.out.println("Selectionner un groupe:");
-                    selectedGroup = in.nextLine();
-
-                    if (Integer.parseInt(selectedGroup) <= listeGroupe.size()) {
-                        Groupe selectGroup = listeGroupe.get(Integer.parseInt(selectedGroup) - 1);
-                        System.out.println("=============================\n" +
-                                "Configuration du groupe \"" + selectGroup.titre  + "\"" +
-                                "\n=============================\n" +
-                                "1- Ajouter un objet au groupe (document, répertoire, service)\n");
-                        String actionSelected = in.nextLine();
-                        switch (actionSelected){
-                            case "1":
-                                System.out.println("Selectionner le type de l'objet:\n" +
-                                        "1-Document\n" +
-                                        "2-Répertoire\n" +
-                                        "3-Service\n");
-                                String typeObject = in.nextLine();
-                                System.out.println("Titre:\n");
-                                String titre = in.nextLine();
-                                System.out.println("Description:\n");
-                                String description = in.nextLine();
-                                createObjet(typeObject);
-                            default:
-                                System.err.println("error");
-                        }
-                    }
-                    break;
-                case "2":
-                    String desc;
-                    String title;
-                    System.out.println("Entrez un titre:");
-                    title = in.nextLine();
-                    System.out.println("Entrez une description:");
-                    desc = in.nextLine();
-                    //Groupe newGroup = newUser.createGroup(title, desc);
-                    //displayGroups(new ArrayList<Groupe>() {{ add(newGroup);}});
-                    break;
-                default:
-                    System.err.println("Saisie incorrecte");
-                    break;
-            }
-
-            System.err.println("Pressez entrer pour revenir au menu, exit pour la quitter");
-            String tmp = in.nextLine();
-            switch (tmp){
-                case "exit":
-                    actif = false;
-                    break;
-                default:
-                    actif = true;
-
-            }
-
-        }
-        System.err.println("À bientôt sur le portail UDS");
-*/
-
-
-  /*  public static void createObjet(String type){
-        switch (type){
-            case "1":
-
-            case "2":
-
-            case "3":
-
-            default:
-
-        }
-    }*/
-
-/*    public static String displayMenu(){
-        Scanner in = new Scanner(System.in);
-        System.out.println("Choisissez une action:" +
-                "\n1- Afficher tous les groupes" +
-                "\n2- Créer un groupe");
-        return in.nextLine();
-    }*/
-
-

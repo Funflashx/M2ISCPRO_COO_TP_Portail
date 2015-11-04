@@ -3,6 +3,10 @@ package com.uds;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
+ */
 public class Service implements Objet {
 
     private String title;

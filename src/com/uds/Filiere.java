@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by francoiscaillet on 29/10/15.
+ * Created by François Caillet on 29/10/2015.
+ * All rights reserved.
  */
 public class Filiere extends Groupe {
 
-    private Trombinoscope trombinoscope = new Trombinoscope();
-    private List<Enseignant> listEnseignants = new ArrayList<Enseignant>();
-    private List<Etudiant> listEtudiants = new ArrayList<Etudiant>();
-    private List<Enseignement> listEnseignement = new ArrayList<Enseignement>();
+    private Trombinoscope trombinoscope;
+    private List<Enseignant> listEnseignants;
+    private List<Etudiant> listEtudiants;
+    private List<Enseignement> listEnseignement;
 
     public Filiere(Membre owner, String title, String description) {
         super(owner, title, description);
+        this.listEnseignants = new ArrayList<>();
+        this.listEtudiants = new ArrayList<>();
+        this.listEnseignement = new ArrayList<>();
+        this.trombinoscope = new Trombinoscope();
     }
 
     public  Filiere(Groupe groupe, String title, String decription){
@@ -35,10 +40,5 @@ public class Filiere extends Groupe {
     public void addMember(Membre membre) {
         this.getListMembre().add(membre);
     }
-
-/*    //TODO:
-    public void method() {
-        System.out.println("Filiere.print()");
-    }*/
 
 }
