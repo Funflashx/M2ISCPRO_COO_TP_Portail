@@ -47,7 +47,19 @@ public class Repertoire implements Objet {
     public HashMap<Document, String> getlinkedDocuments() {
         return null;
     }
+    public List<Objet> getChildObjets (){
+        return this.childObjets;
+    }
 
+    public void clearFiles(){
+        for (Objet objet : childObjets) {
+            if (objet.getClass().getSimpleName().equals("Document")){
+                remove(objet);
+            } else if (objet.getClass().getSimpleName().equals("Repertoire")) {
+                objet.clearFiles();
+            }
+        }
+    }
 
     /**
      * @param section indentation des dossiers

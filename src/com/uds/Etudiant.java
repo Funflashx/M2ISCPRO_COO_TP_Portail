@@ -14,5 +14,7 @@ public class Etudiant extends Membre {
     public Etudiant(String lastname, String firstname, Filiere filiere) {
         super(lastname, firstname);
         this.filiere = filiere;
+        this.addGroup(filiere);
+        filiere.addMember(this);
     }
 }

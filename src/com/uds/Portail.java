@@ -33,19 +33,74 @@ public class Portail {
         groupInstitutionnel = new GroupeInstitutionnelFactory();
         groupTypique = new GroupeTypiqueFactory();
 
+        //Creation des prof
+        Enseignant christine = new Enseignant("Christine", "Ferraris");
+
+
+        //Enseignements
+        Enseignement enseignement1 = new Enseignement("INFO921", christine);
+        Enseignement enseignement2 = new Enseignement("INFO912", christine);
+        Enseignement enseignement3 = new Enseignement("INFO932", christine);
+        Enseignement enseignement4 = new Enseignement("INFO978", christine);
+        Enseignement enseignement5 = new Enseignement("INFO999", christine);
+        Enseignement enseignement6 = new Enseignement("INFO966", christine);
+        Enseignement enseignement11 = new Enseignement("INFO821", christine);
+        Enseignement enseignement12 = new Enseignement("INFO831", christine);
+        Enseignement enseignement13 = new Enseignement("INFO821", christine);
+        Enseignement enseignement14 = new Enseignement("INFO701", christine);
+        Enseignement enseignement15 = new Enseignement("INFO871", christine);
 
 
 
-        //Filière
+        //Filières
         DSI jack = new DSI("Jack", "Sparrow");
         Filiere filiere = new Filiere(jack,"M2ISCSTICINFO", "Groupe des étudiant de master 2 STIC INFO");
+        Filiere filiere1 = new Filiere(jack,"M1ISCSTICINFO", "Groupe des étudiant de master 1 STIC INFO");
+        Filiere filiere2 = new Filiere(jack,"L3ISCSTICINFO", "Groupe des étudiant de licence 3 STIC INFO");
+        Filiere filiere3 = new Filiere(jack,"L2ISCSTICINFO", "Groupe des étudiant de licence 2 STIC INFO");
+        Filiere filiere4 = new Filiere(jack,"L1ISCSTICINFO", "Groupe des étudiant de licence 1 STIC INFO");
         listGroupFiliere.add(filiere);
+        listGroupFiliere.add(filiere1);
+        listGroupFiliere.add(filiere2);
+        listGroupFiliere.add(filiere3);
+        listGroupFiliere.add(filiere4);
+
+        //Ajout des enseignement:
+        ArrayList<Enseignement> enseignements1 = new ArrayList<>();
+        enseignements1.add(enseignement1);
+        enseignements1.add(enseignement2);
+        enseignements1.add(enseignement3);
+        enseignements1.add(enseignement4);
+        enseignements1.add(enseignement5);
+        enseignements1.add(enseignement6);
+
+        ArrayList<Enseignement> enseignements2 = new ArrayList<>();
+        enseignements2.add(enseignement11);
+        enseignements2.add(enseignement12);
+        enseignements2.add(enseignement13);
+        enseignements2.add(enseignement14);
+        enseignements2.add(enseignement15);
+
+        //ajoute à la filière:
+        filiere.setListEnseignement(enseignements1);
+        filiere1.setListEnseignement(enseignements2);
 
         //Creation d'une liste d'utilisateur
         Etudiant antoine = new Etudiant("Antoine", "Daniel",filiere);
         Etudiant françois = new Etudiant("François", "Caillet",filiere);
         Etudiant anthony = new Etudiant("Anthony", "Di Lisio",filiere);
-        Enseignant christine = new Enseignant("Christine", "Ferraris");
+
+        Etudiant etudiant1 = new Etudiant("foo", "bar",filiere1);
+        Etudiant etudiant2 = new Etudiant("foo", "bar1",filiere1);
+        Etudiant etudiant4 = new Etudiant("foo", "bar2",filiere1);
+
+
+        //liste enseignant:
+        ArrayList<Enseignant> enseignants = new ArrayList<>();
+        enseignants.add(christine);
+        filiere.setListEnseignants(enseignants);
+        filiere1.setListEnseignants(enseignants);
+
 
 
 
@@ -70,15 +125,19 @@ public class Portail {
         //Member (1)--est gestionnaire--(*)>Group(1)----(*)>Object
         Repertoire sousRepertoire1 = new Repertoire("rep1", "", antoine);
         antoine.getGroups().get(0).addObject("repertoire", sousRepertoire1, groupeTest.getRacine());
+        groupeTest.addRepository(sousRepertoire1);
 
         Repertoire sousSousRepertoire1 = new Repertoire("rep2", "", antoine);
         antoine.getGroups().get(0).addObject("repertoire", sousSousRepertoire1, sousRepertoire1);
+        groupeTest.addRepository(sousSousRepertoire1);
 
         Document document = new Document("document", "", antoine);
         antoine.getGroups().get(0).addObject("document", document, sousSousRepertoire1);
+        groupeTest.addDocument(document);
 
         Document documentCorrection = new Document("document correction", "", antoine);
         antoine.getGroups().get(0).addObject("document", documentCorrection, sousSousRepertoire1);
+        groupeTest.addDocument(documentCorrection);
 
         Service service = new Service("doodle", "sondage sur la faim du monde", antoine);
         antoine.getGroups().get(0).addObject("service", service, sousRepertoire1);
@@ -209,13 +268,14 @@ public class Portail {
      * @param groupe le groupe
      */
     public static void displayGroup(Groupe groupe){
-        System.out.print("#" + (char) 27 + "[30;4m" + groupe.getTitre());
+        System.out.print("\n#" + (char) 27 + "[30;4m" + groupe.getTitre());
         defaultDisplay();
         System.out.print("\n=============================\n#created by: "+ (char)27 + "[36;1m" + groupe.getOwner().getFullname() + (char)27 + "[0;0m"+"\n##brief:"
                 + (char)27 + "[30;0m"+ groupe.getDescription() + (char)27 + "[0;0m" + "\n_____________________membres:\n");
 
         displayMembers(groupe.getListMembre());
         groupe.getRacine().print(0);
+        System.out.println();
     }
 
     /**
@@ -257,6 +317,11 @@ public class Portail {
             }
         }
 
+        return null;
+    }
+
+    public static Filiere selectGroupsFiliere(List<Filiere> listGroupFiliere) {
+        //TODO
         return null;
     }
 }

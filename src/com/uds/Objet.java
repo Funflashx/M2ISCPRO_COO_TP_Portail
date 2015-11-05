@@ -44,6 +44,7 @@ interface Objet {
      * affiche l'objet
      */
     void print(int section);
+    void clearFiles();
 
 
     /**

@@ -13,6 +13,7 @@ public class Filiere extends Groupe {
     private List<Enseignant> listEnseignants;
     private List<Etudiant> listEtudiants;
     private List<Enseignement> listEnseignement;
+    private Enseignant[] listEnseigant;
 
     public Filiere(Membre owner, String title, String description) {
         super(owner, title, description);
@@ -41,4 +42,20 @@ public class Filiere extends Groupe {
         this.getListMembre().add(membre);
     }
 
+
+    public void setListEnseignants(List<Enseignant> listEnseignants) {
+        this.listEnseignants = listEnseignants;
+    }
+
+    public void setListEtudiants(List<Etudiant> listEtudiants) {
+        this.listEtudiants = listEtudiants;
+    }
+
+    public void setListEnseignement(List<Enseignement> listEnseignement) {
+        this.listEnseignement = listEnseignement;
+    }
+
+    public Enseignant[] getListEnseigant() {
+        return listEnseigant;
+    }
 }

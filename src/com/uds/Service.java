@@ -59,6 +59,9 @@ public class Service implements Objet {
         System.out.println((char)27 + "[35;1m" + title + (char)27 + "[0;0m");
     }
 
+    public void clearFiles() {
+    }
+
     public void addLink(Document document, String label) {
         System.err.println("le service ne peut pas être lié à un document");
     }

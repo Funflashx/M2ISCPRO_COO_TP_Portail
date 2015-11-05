@@ -5,4 +5,11 @@ package com.uds;
  * All rights reserved.
  */
 public class Enseignement {
+    private String title;
+    private Enseignant owner;
+
+    Enseignement (String title, Enseignant enseignant){
+        this.title = title;
+        this.owner = enseignant;
+    }
 }

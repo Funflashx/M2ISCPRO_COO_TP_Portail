@@ -1,5 +1,7 @@
 package com.uds;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -148,10 +150,12 @@ public class Menu {
                     this.accessToGroup();
                     break;
                 case 3:
-                    this.addMemberToGroup();
+                    Groupe group = Portail.selectGroup(Portail.currentMember.getGroups());
+                    this.addMemberToGroup(group);
+                    Portail.displayGroup(group);
                     break;
                 case 4:
-                    this.copyGroup();
+                    this.copyGroup(Portail.selectGroup(Portail.currentMember.getGroups()));
                     break;
                 case 5:
                     disconnected = true;
@@ -165,21 +169,28 @@ public class Menu {
 
     }
 
-    private void copyGroup() {
-        //TODO: copyGroup
+    private void copyGroup(Groupe toCopy) {
+        System.out.println(" --- Veillez indiquer le titre du groupe copié:");
+        String title = input.nextLine();
+        System.out.println(" --- Veillez indiquer la description du groupe copié:");
+        String description = input.nextLine();
+        assert toCopy != null;
+        Groupe copiedGroup = toCopy.copy(title, description);
+        Portail.displayGroup(copiedGroup);
+        Portail.currentMember.addGroup(copiedGroup);
+        Portail.listGroups.add(copiedGroup);
     }
 
-    private void addMemberToGroup() {
-        Groupe selectedGroup = Portail.selectGroup(Portail.currentMember.getGroups());
+    private void addMemberToGroup(Groupe group) {
         System.out.println("Veuillez indiquer le nom et prenom du membre à ajouter:");
         String fullname = input.nextLine();
         Membre addedMember = Portail.searchMember(fullname);
         //le portail l'ajoute à la liste de ses groupe
-        if (addedMember != null && selectedGroup != null) {
-            selectedGroup.addMember(addedMember);
-            addedMember.addGroup(selectedGroup);
+        if (addedMember != null && group != null) {
+            group.addMember(addedMember);
+            addedMember.addGroup(group);
         }else {
-            addMemberToGroup();
+            addMemberToGroup(group);
         }
 
 
@@ -198,22 +209,28 @@ public class Menu {
                     "   --- 6) Retour au menu principale\n");
             int selection = input.nextInt();
             input.nextLine();
-            //TODO: group menue
             switch (selection) {
                 case 1:
+                    selectDocumentsToLink(selected);
                     break;
                 case 2:
+                    addObject(selected);
                     break;
                 case 3:
+                    addMemberToGroup(selected);
+                    Portail.displayGroup(selected);
                     break;
                 case 4:
+                    copyGroup(selected);
                     break;
                 case 5:
+                    accessToGroup();
                     break;
                 case 6:
                     break;
                 default:
-                    System.out.println("Invalid selection.");
+                    System.err.println("Invalid selection.");
+                    accessToGroup();
                     break;
             }
         }
@@ -237,7 +254,7 @@ public class Menu {
             case 3:
                 break;
             default:
-                System.out.println("Invalid selection.");
+                System.err.println("Invalid selection.");
                 createGroup();
                 break;
         }
@@ -341,15 +358,6 @@ public class Menu {
 
     }
 
-    private Filiere chooseFiliere() {
-        //TODO:chooseFilère
-        return null;
-    }
-
-    private void deployGroupArea() {
-        //TODO:deploygroupArea
-    }
-
     private void connexion() {
 
         System.out.println("Entrez votre nom suivi de votre prénom:");
@@ -386,6 +394,132 @@ public class Menu {
             }
         }
 
+    }
+
+    private Filiere chooseFiliere() {
+        return Portail.selectGroupsFiliere(Portail.listGroupFiliere);
+    }
+
+    private void deployGroupArea() {
+        int index = 0;
+        for (Filiere f : Portail.listGroupFiliere){
+            System.out.println(index + "- " + f.getTitre());
+            index++;
+        }
+        System.out.println("Lequels selectionnez vous?");
+        int selection = input.nextInt();
+        System.out.println("            ...loading...");
+        Filiere selectedFiliere = Portail.listGroupFiliere.get(selection);
+
+        //La DSI crée un group institutionnel
+        Groupe groupe = Portail.groupInstitutionnel.creeGroupe("filiere", Portail.currentMember, selectedFiliere.getTitre(), selectedFiliere.getDescription());
+
+        //le portail l'ajoute à la liste de des groupe des enseignants
+        for (Enseignant e : selectedFiliere.getListEnseigant()){
+            selectedFiliere.addMember(e);
+            e.addGroup(selectedFiliere);
+        }
+
+        Repertoire sousRepertoire1 = new Repertoire("cours", "", Portail.currentMember);
+        selectedFiliere.addObject("repertoire", sousRepertoire1, groupe.getRacine());
+        selectedFiliere.addRepository(sousRepertoire1);
+
+        Repertoire sousRepertoire2 = new Repertoire("td", "", Portail.currentMember);
+        selectedFiliere.addObject("repertoire", sousRepertoire2, groupe.getRacine());
+        selectedFiliere.addRepository(sousRepertoire2);
+
+        Repertoire sousRepertoire3 = new Repertoire("tp", "", Portail.currentMember);
+        selectedFiliere.addObject("repertoire", sousRepertoire3, groupe.getRacine());
+        selectedFiliere.addRepository(sousRepertoire3);
+
+        Portail.displayGroup(selectedFiliere);
+
+    }
+
+    private void addObject(Groupe groupe) {
+        ArrayList<String> titleDescription = new ArrayList<>();
+
+        System.out.println("--- Quelle type de document souhaitez vous ajouter:\n"+
+                "   --- 1) nouveau Document\n" +
+                "   --- 2) nouveau Service\n" +
+                "   --- 3) nouveau Repertoire\n" +
+                "   --- 4) Retour\n");
+        int selection = input.nextInt();
+        input.nextLine();
+        Repertoire selelectedRepertoire = selectRepositories(groupe.getRepositories());
+        titleDescription = selectTitleDescription();
+        switch (selection){
+            case 1:
+                assert selelectedRepertoire != null;
+                Document document = new Document(titleDescription.get(0), titleDescription.get(1), Portail.currentMember);
+                groupe.addDocument(document);
+                selelectedRepertoire.add(document);
+                groupe.getRacine().print(0);
+                break;
+            case 2:
+                assert selelectedRepertoire != null;
+                selelectedRepertoire.add(new Service(titleDescription.get(0), titleDescription.get(1), Portail.currentMember));
+                groupe.getRacine().print(0);
+                break;
+            case 3:
+                assert selelectedRepertoire != null;
+                Repertoire repertoire = new Repertoire(titleDescription.get(0), titleDescription.get(1), Portail.currentMember);
+                groupe.addRepository(repertoire);
+                selelectedRepertoire.add(repertoire);
+                groupe.getRacine().print(0);
+                break;
+            case 4:
+                break;
+            default:
+                System.out.println("Invalid selection.");
+                addObject(groupe);
+                break;
+        }
+
+
+    }
+
+    private ArrayList<String> selectTitleDescription() {
+        System.out.println("Veuillez indiquer le titre:");
+        ArrayList<String> titleDescription = new ArrayList<>();
+        titleDescription.add(input.nextLine());
+        System.out.println("Veuillez indiquer le description:");
+        titleDescription.add(input.nextLine());
+        return titleDescription;
+    }
+
+
+
+
+    private Repertoire selectRepositories(List<Repertoire> repositories) {
+        int index = 0;
+        for (Repertoire r : repositories){
+            System.out.println(index + "- " + r.getTitle());
+            index++;
+        }
+        System.out.println("Ou souhaitez vous l'ajouter: ");
+        int selection = input.nextInt();
+        input.nextLine();
+        assert selection >= repositories.size() - 1;
+        return repositories.get(selection);
+
+    }
+
+    private void selectDocumentsToLink(Groupe groupe) {
+        int index = 0;
+        for (Document d : groupe.getDocuments()){
+            System.out.println(index + "- " + d.getTitle());
+            index++;
+        }
+        System.out.println("Lesquels souhaitez vous lier? ");
+        int selection = input.nextInt();
+        System.out.println("avec ?");
+        int selection2 = input.nextInt();
+        input.nextInt();
+        System.out.println("Décrire le type du lien (ex: corriger):");
+        String description = input.nextLine();
+        groupe.getDocuments().get(selection).addLink(groupe.getDocuments().get(selection2), description);
+        Portail.displayDocumentlinked(groupe.getDocuments().get(selection));
     }
 
     private void exit() {
